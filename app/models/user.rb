@@ -5,4 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :critics, as: :criticable, dependent: :destroy
+
+  validates :email, :username, presence: true, uniqueness: true
+
+  # validate birth_date
 end
