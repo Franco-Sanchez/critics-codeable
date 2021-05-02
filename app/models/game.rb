@@ -22,7 +22,7 @@ class Game < ApplicationRecord
 
   def parent_validation
     if main_game?
-      errors.add(:parent_id, 'Should be null if is main game') unless parent_id.nil?
+      errors.add(:parent_id, 'Should be null if is a main game') unless parent_id.nil?
     elsif expansion?
       errors.add(:parent_id, 'Should be a valid Game id') unless Game.exists?(parent_id)
     end
