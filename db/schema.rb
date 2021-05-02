@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_02_012121) do
+ActiveRecord::Schema.define(version: 2021_05_02_025657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,20 @@ ActiveRecord::Schema.define(version: 2021_05_02_012121) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "critics", force: :cascade do |t|
+    t.string "criticable_type", null: false
+    t.bigint "criticable_id", null: false
+    t.string "title"
+    t.text "body"
+    t.bigint "user_id", null: false
+    t.bigint "game_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["criticable_type", "criticable_id"], name: "index_critics_on_criticable"
+    t.index ["game_id"], name: "index_critics_on_game_id"
+    t.index ["user_id"], name: "index_critics_on_user_id"
+  end
+
   create_table "games", force: :cascade do |t|
     t.string "name"
     t.text "summary"
@@ -64,10 +78,30 @@ ActiveRecord::Schema.define(version: 2021_05_02_012121) do
     t.index ["parent_id"], name: "index_games_on_parent_id"
   end
 
+  create_table "games_genres", id: false, force: :cascade do |t|
+    t.bigint "game_id", null: false
+    t.bigint "genre_id", null: false
+  end
+
+  create_table "games_platforms", id: false, force: :cascade do |t|
+    t.bigint "game_id", null: false
+    t.bigint "platform_id", null: false
+  end
+
   create_table "genres", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "involved_companies", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.bigint "game_id", null: false
+    t.string "type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_involved_companies_on_company_id"
+    t.index ["game_id"], name: "index_involved_companies_on_game_id"
   end
 
   create_table "platforms", force: :cascade do |t|
@@ -76,7 +110,26 @@ ActiveRecord::Schema.define(version: 2021_05_02_012121) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "username"
+    t.integer "critics_count", default: 0
+    t.integer "role", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "critics", "games"
+  add_foreign_key "critics", "users"
   add_foreign_key "games", "games", column: "parent_id"
+  add_foreign_key "involved_companies", "companies"
+  add_foreign_key "involved_companies", "games"
 end
