@@ -1,5 +1,12 @@
 class CompanyController < ApplicationController
-  def new; end
+  # GET /companies/new
+  def new
+    @company = Company.new
+  end
 
-  def create; end
+  # POST /companies
+  def create
+    company = Company.new
+    company.save
+  end
 end
