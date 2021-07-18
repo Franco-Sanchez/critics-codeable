@@ -11,6 +11,30 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <header>  
+        <%= link_to image_tag("logo.svg"), root_path %>
+        <% if current_user %>
+          <div>
+            <p>Loggead as, </p>
+            <button>
+              <%= link_to 'Logout', destroy_user_session_path %>
+            </button>
+          </div>
+        <% else %>
+          <button>
+            <%= link_to 'Sign In', new_user_session_path %>
+          </button>
+        <% end %>
+      </header>
+
+      <main>
+        <%= yield %>
+      </main>
+
+      <footer>
+        <h5>Critics - 2021</h5>
+      </footer>
+    </div>
   </body>
 </html>
