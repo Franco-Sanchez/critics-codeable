@@ -1,0 +1,18 @@
+<%= form_with model: [game, critic] do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :body %>
+    <%= f.text_area :body %>
+  </div>
+
+  <div>
+    <button type="button">
+      <%= link_to 'Cancel', game %>
+    </button>
+    <%= yield f %>
+  </div>
+<% end %>

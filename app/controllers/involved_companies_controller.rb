@@ -9,7 +9,11 @@ class InvolvedCompaniesController < ApplicationController
   # POST /games/:game_id/involved_companies
   def create
     involved_company = @game.involved_companies.new
-    involved_company.save
+    if involved_company.save
+      redirect_to @game
+    else
+      redirect :new
+    end
   end
 
   private

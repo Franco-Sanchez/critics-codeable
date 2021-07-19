@@ -17,7 +17,11 @@ class GamesController < ApplicationController
   # POST /games
   def create
     game = Game.new
-    game.save
+    if game.save
+      redirect_to root_path
+    else
+      redirect :new
+    end
   end
 
   # GET /games/:game_id/add_genre/new
@@ -28,7 +32,11 @@ class GamesController < ApplicationController
   # POST /games/:game_id/add_genre
   def add_genre
     genre = @game.genres.new
-    genre.save
+    if genre.save
+      redirect_to @game
+    else
+      redirect :add_genre_new
+    end
   end
 
   # GET /games/:game_id/add_platform/new
@@ -39,7 +47,11 @@ class GamesController < ApplicationController
   # POST /games/:game_id/add_platform
   def add_platform
     platform = @game.platforms.new
-    platform.save
+    if platform.save
+      redirect_to @game
+    else
+      redirect :add_platform_new
+    end
   end
 
   private

@@ -22,3 +22,7 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+- Redireccionar a la vista de login si es que un usuario quiere entrar a una ruta privada, como para crear nuevos juegos o nuevas compañías.
+
+- Agregar partial para compartir la estructura HTML de algunos formularios.

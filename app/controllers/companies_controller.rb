@@ -1,4 +1,4 @@
-class CompanyController < ApplicationController
+class CompaniesController < ApplicationController
   # GET /companies/new
   def new
     @company = Company.new
@@ -7,6 +7,10 @@ class CompanyController < ApplicationController
   # POST /companies
   def create
     company = Company.new
-    company.save
+    if company.save
+      redirect_to root_path
+    else
+      redirect :new
+    end
   end
 end

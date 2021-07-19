@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  root 'games#index'
+
   devise_for :users
 
   resources :games, only: %i[index show new create] do
@@ -15,8 +17,6 @@ Rails.application.routes.draw do
 
   get '/games/:game_id/add_platform/new', to: 'games#add_platform_new', as: 'game_add_platform_new'
   post '/games/:game_id/add_platform', to: 'games#add_platform', as: 'game_add_platform'
-
-  root 'games#index'
 
   # devise_scope :user do
   #   root 'devise/sessions#new'

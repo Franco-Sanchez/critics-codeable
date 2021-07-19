@@ -1,1 +1,5 @@
-<h1>Critics#new</h1>
+<h1>New Critic for <%= @game.name %></h1>
+
+<%= render "shared/critic_form", game: @game, critic: @critic do |f| %>
+  <%= f.submit 'Submit Critic' %>
+<% end %>

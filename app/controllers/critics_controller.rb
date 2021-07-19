@@ -10,7 +10,11 @@ class CriticsController < ApplicationController
   # POST /games/:game_id/critics
   def create
     critic = @game.critics.new
-    critic.save
+    if critic.save
+      redirect_to @game
+    else
+      redirect :new
+    end
   end
 
   # GET /games/:game_id/critics/:id/edit
@@ -18,7 +22,11 @@ class CriticsController < ApplicationController
 
   # PATCH /games/:game_id/critics/:id
   def update
-    @critic.update
+    if @critic.update
+      redirect_to @game
+    else
+      redirect :edit
+    end
   end
 
   private
