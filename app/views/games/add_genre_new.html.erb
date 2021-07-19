@@ -1,2 +1,15 @@
-<h1>Games#add_genre_new</h1>
-<p><%= @game.name %><p>
+<h1>Add Genre to <%= @game.name %></h1>
+
+<%= form_with url: game_add_genre_new_path(@game) do |f| %>
+  <div>
+    <%= f.label :genre_id, 'Genre' %>
+    <%= f.collection_select :genre_id, Genre.all, :id, :name, prompt: "Please select" %>
+  </div>
+
+  <div>
+    <button type="button">
+      <%= link_to 'Cancel', @game %>
+    </button>
+    <%= f.submit 'Add Genre' %>
+  </div>
+<% end %>
