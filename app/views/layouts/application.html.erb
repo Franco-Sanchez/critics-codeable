@@ -16,7 +16,7 @@
         <%= link_to image_tag("logo.svg"), root_path %>
         <% if current_user %>
           <div>
-            <p>Loggead as, </p>
+            <p>Loggead as, <%= link_to current_user.username, edit_user_registration_path %> </p>
             <button>
               <%= link_to 'Logout', destroy_user_session_path %>
             </button>
