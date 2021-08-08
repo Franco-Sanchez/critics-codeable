@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   has_many :critics, as: :criticable, dependent: :destroy
 
-  validates :email, :username, presence: true, uniqueness: true
+  enum role: { member: 0, admin: 1 }
 
-  # validate birth_date
+  validates :email, :username, presence: true, uniqueness: true
 end

@@ -8,7 +8,7 @@ class InvolvedCompaniesController < ApplicationController
 
   # POST /games/:game_id/involved_companies
   def create
-    involved_company = @game.involved_companies.new
+    involved_company = @game.involved_companies.new(involved_company_params)
     if involved_company.save
       redirect_to @game
     else
@@ -20,5 +20,9 @@ class InvolvedCompaniesController < ApplicationController
 
   def find_game
     @game = Game.find(params[:game_id])
+  end
+
+  def involved_company_params
+    params.require(:involved_company).permit(:company_id, :publisher, :developer)
   end
 end

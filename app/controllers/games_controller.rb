@@ -16,7 +16,7 @@ class GamesController < ApplicationController
 
   # POST /games
   def create
-    game = Game.new
+    game = Game.new(game_params)
     if game.save
       redirect_to root_path
     else
@@ -31,7 +31,8 @@ class GamesController < ApplicationController
 
   # POST /games/:game_id/add_genre
   def add_genre
-    genre = @game.genres.new
+    p params
+    genre = @game.genres.new(genre_params)
     if genre.save
       redirect_to @game
     else
@@ -46,7 +47,8 @@ class GamesController < ApplicationController
 
   # POST /games/:game_id/add_platform
   def add_platform
-    platform = @game.platforms.new
+    p params
+    platform = @game.platforms.new(platform_params)
     if platform.save
       redirect_to @game
     else
@@ -58,5 +60,18 @@ class GamesController < ApplicationController
 
   def find_game
     @game = Game.find(params[:id] || params[:game_id])
+  end
+
+  def game_params
+    params.require(:game).permit(:name, :summary, :released_date, :category, :rating,
+                                 :parent_id, :cover)
+  end
+
+  def genre_params
+    params.require(:genre).permit(:genre_id)
+  end
+
+  def platform_params
+    params.require(:platform).permit(:platform_id)
   end
 end

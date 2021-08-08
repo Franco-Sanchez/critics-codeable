@@ -9,7 +9,7 @@ class CriticsController < ApplicationController
 
   # POST /games/:game_id/critics
   def create
-    critic = @game.critics.new
+    critic = @game.critics.new(critic_params)
     if critic.save
       redirect_to @game
     else
@@ -22,7 +22,7 @@ class CriticsController < ApplicationController
 
   # PATCH /games/:game_id/critics/:id
   def update
-    if @critic.update
+    if @critic.update(critic_params)
       redirect_to @game
     else
       redirect :edit
@@ -37,5 +37,9 @@ class CriticsController < ApplicationController
 
   def find_critic
     @critic = @game.critics.find(params[:id])
+  end
+
+  def critic_params
+    params.require(:critic).permit(:title, :body)
   end
 end
