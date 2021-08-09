@@ -29,6 +29,12 @@ class CriticsController < ApplicationController
     end
   end
 
+  # DELETE /games/:game_id/critics/:id
+  def destroy
+    @critic.destroy
+    redirect_to @game
+  end
+
   private
 
   def find_game

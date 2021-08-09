@@ -1,1 +1,15 @@
-<h1>Games#add_platform_new</h1>
+<h1>Add Platform to <%= @game.name %></h1>
+
+<%= form_with url: game_add_platforms_path(@game) do |f| %>
+    <div>
+      <%= f.label :platform_id, 'Platform' %>
+      <%= f.collection_select :platform_id, Platform.all, :id, :name, prompt: 'Please select' %>
+    </div>
+  
+    <div>
+      <button type='button'>
+        <%= link_to 'Cancel', @game %>
+      </button>
+      <%= f.submit 'Add Platform' %>
+    </div>
+  <% end %>

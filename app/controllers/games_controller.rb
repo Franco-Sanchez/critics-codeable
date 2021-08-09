@@ -24,14 +24,31 @@ class GamesController < ApplicationController
     end
   end
 
-  # GET /games/:game_id/add_genre/new
+  # GET /games/:id/edit
+  def edit; end
+
+  # PATCH /games/:id
+  def update
+    if @game.update(game_params)
+      redirect_to @game
+    else
+      redirect :edit
+    end
+  end
+
+  # DELETE /games/:id
+  def destroy
+    @game.destroy
+    redirect_to root_path
+  end
+
+  # GET /games/:game_id/add-genre/new
   def add_genre_new
     @genre = @game.genres.new
   end
 
-  # POST /games/:game_id/add_genre
+  # POST /games/:game_id/add-genre
   def add_genre
-    p params
     genre = @game.genres.new(genre_params)
     if genre.save
       redirect_to @game
@@ -40,20 +57,33 @@ class GamesController < ApplicationController
     end
   end
 
-  # GET /games/:game_id/add_platform/new
+  # DELETE /games/:game_id/remove-genre/:genre_id
+  def remove_genre
+    genre = Genre.find(params[:genre_id])
+    @game.genres.delete(genre)
+    redirect_to @game
+  end
+
+  # GET /games/:game_id/add-platform/new
   def add_platform_new
     @platform = @game.platforms.new
   end
 
-  # POST /games/:game_id/add_platform
+  # POST /games/:game_id/add-platform
   def add_platform
-    p params
     platform = @game.platforms.new(platform_params)
     if platform.save
       redirect_to @game
     else
       redirect :add_platform_new
     end
+  end
+
+  # DELETE /games/:game_id/remove-platform/:platform_id
+  def remove_platform
+    platform = Platform.find(params[:platform_id])
+    @game.platforms.delete(platform)
+    redirect_to @game
   end
 
   private

@@ -16,6 +16,13 @@ class InvolvedCompaniesController < ApplicationController
     end
   end
 
+  # DELETE /games/:game_id/involved_companies/:id
+  def destroy
+    company = Company.find(params[:id])
+    @game.involved_companies.delete(company)
+    redirect_to @game
+  end
+
   private
 
   def find_game
