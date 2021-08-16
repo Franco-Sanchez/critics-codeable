@@ -6,11 +6,11 @@ class CompaniesController < ApplicationController
 
   # POST /companies
   def create
-    company = Company.new(company_params)
-    if company.save
+    @company = Company.new(company_params)
+    if @company.save
       redirect_to root_path
     else
-      redirect :new
+      render :new
     end
   end
 

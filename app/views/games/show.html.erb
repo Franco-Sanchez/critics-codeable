@@ -1,2 +1,41 @@
-<h1>Game</h1>
-<p><%= @game.name %></p>
+<section>
+    <article>
+        <%= @game.cover.attached? ? image_tag(@game.cover) : image_tag('') %>
+        <div>
+            <h2><%= @game.name %></h2>
+            <span>Released date: <%= @game.released_date.strftime("%B %d, %Y") %></span>
+            <span><%= @game.rating %></span>
+        </div>
+        <div>
+            <div>
+                <span>Genres:</span>
+                <% @game.genres.each do |genre| %>
+                    <%= genre.name %>
+                <% end %>
+            </div>
+            <div>
+                <span>Platforms:</span>
+                <% @game.platforms.each do |platform| %>
+                    <%= platform.name %>
+                <% end %>
+            </div>
+            <div>
+                <span>Companies:</span>
+                <% @game.involved_companies.each do |involved_company| %>
+                    <%= involved_company.company.name %>
+                <% end %>
+            </div>
+            <p><%= @game.summary %></p>
+        </div>
+    </article>
+</section>
+<section>
+    <header>
+        <span><%= @game.critics.count %> critics:</span>
+        <% if current_user %>
+            <button>
+                <%= link_to 'New Critic', new_game_critic_path(@game) %>
+            </button>
+        <% end %>
+    </header>
+</section>

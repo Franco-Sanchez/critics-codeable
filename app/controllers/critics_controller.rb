@@ -9,11 +9,11 @@ class CriticsController < ApplicationController
 
   # POST /games/:game_id/critics
   def create
-    critic = @game.critics.new(critic_params)
-    if critic.save
+    @critic = @game.critics.new(critic_params)
+    if @critic.save
       redirect_to @game
     else
-      redirect :new
+      render :new
     end
   end
 
@@ -25,7 +25,7 @@ class CriticsController < ApplicationController
     if @critic.update(critic_params)
       redirect_to @game
     else
-      redirect :edit
+      render :edit
     end
   end
 

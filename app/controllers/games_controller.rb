@@ -16,11 +16,11 @@ class GamesController < ApplicationController
 
   # POST /games
   def create
-    game = Game.new(game_params)
-    if game.save
+    @game = Game.new(game_params)
+    if @game.save
       redirect_to root_path
     else
-      redirect :new
+      render :new
     end
   end
 
@@ -32,7 +32,7 @@ class GamesController < ApplicationController
     if @game.update(game_params)
       redirect_to @game
     else
-      redirect :edit
+      render :edit
     end
   end
 
@@ -49,11 +49,11 @@ class GamesController < ApplicationController
 
   # POST /games/:game_id/add-genre
   def add_genre
-    genre = @game.genres.new(genre_params)
-    if genre.save
+    @genre = @game.genres.new(genre_params)
+    if @genre.save
       redirect_to @game
     else
-      redirect :add_genre_new
+      render :add_genre_new
     end
   end
 
@@ -71,11 +71,11 @@ class GamesController < ApplicationController
 
   # POST /games/:game_id/add-platform
   def add_platform
-    platform = @game.platforms.new(platform_params)
-    if platform.save
+    @platform = @game.platforms.new(platform_params)
+    if @platform.save
       redirect_to @game
     else
-      redirect :add_platform_new
+      render :add_platform_new
     end
   end
 
