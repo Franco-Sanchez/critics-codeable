@@ -10,6 +10,7 @@ class CriticsController < ApplicationController
   # POST /games/:game_id/critics
   def create
     @critic = @game.critics.new(critic_params)
+    @critic.user = current_user
     if @critic.save
       redirect_to @game
     else
