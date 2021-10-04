@@ -49,12 +49,9 @@ class GamesController < ApplicationController
 
   # POST /games/:game_id/add-genre
   def add_genre
-    @genre = @game.genres.new(genre_params)
-    if @genre.save
-      redirect_to @game
-    else
-      render :add_genre_new
-    end
+    found_genre = Genre.find(params[:genre_id])
+    @game.genres << found_genre unless @game.genres.include?(found_genre)
+    redirect_to @game
   end
 
   # DELETE /games/:game_id/remove-genre/:genre_id
@@ -71,12 +68,9 @@ class GamesController < ApplicationController
 
   # POST /games/:game_id/add-platform
   def add_platform
-    @platform = @game.platforms.new(platform_params)
-    if @platform.save
-      redirect_to @game
-    else
-      render :add_platform_new
-    end
+    found_platform = Platform.find(params[:platform_id])
+    @game.platforms << found_platform unless @game.platforms.include?(found_platform)
+    redirect_to @game
   end
 
   # DELETE /games/:game_id/remove-platform/:platform_id
@@ -95,13 +89,5 @@ class GamesController < ApplicationController
   def game_params
     params.require(:game).permit(:name, :summary, :released_date, :category, :rating,
                                  :parent_id, :cover)
-  end
-
-  def genre_params
-    params.require(:genre).permit(:genre_id)
-  end
-
-  def platform_params
-    params.require(:platform).permit(:platform_id)
   end
 end

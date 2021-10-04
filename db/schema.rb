@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_02_225750) do
+ActiveRecord::Schema.define(version: 2021_10_04_011730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,8 +102,8 @@ ActiveRecord::Schema.define(version: 2021_05_02_225750) do
     t.bigint "game_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "developer"
-    t.boolean "publisher"
+    t.boolean "developer", default: false
+    t.boolean "publisher", default: false
     t.index ["company_id", "game_id"], name: "index_involved_companies_on_company_id_and_game_id", unique: true
     t.index ["company_id"], name: "index_involved_companies_on_company_id"
     t.index ["game_id"], name: "index_involved_companies_on_game_id"
