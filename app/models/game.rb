@@ -18,6 +18,10 @@ class Game < ApplicationRecord
   validate :parent_validation
   validate :not_be_in_the_future
 
+  def sorted_critics
+    critics.order(created_at: :desc)
+  end
+
   private
 
   def parent_validation

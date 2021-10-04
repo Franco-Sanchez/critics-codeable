@@ -38,4 +38,11 @@
             </button>
         <% end %>
     </header>
+    <% @game.sorted_critics.each do |critic| %>
+        <article>
+            <h3><%= critic.title %></h3>
+            <span>by <%= critic.user.username %> - <%= critic.created_at.strftime("%B %d, %Y") %></span>
+            <p><%= critic.body %></p>
+        </article>
+    <% end %>
 </section>
