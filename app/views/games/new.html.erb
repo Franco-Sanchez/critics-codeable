@@ -18,22 +18,22 @@
 
     <div>
         <%= f.label :category %>
-
+        <%= f.select :category, [['Main game', 0], ['Expansion', 1]], prompt: 'Please select' %>
     </div>
 
     <div>
         <%= f.label :rating %>
-
+        <%= f.number_field :rating, step: :any %>
     </div>
 
     <div>
-        <%= f.label :parent %>
-
+        <%= f.label :parent_id, 'Parent' %>
+        <%= f.collection_select :parent_id, Game.where({ category: 0 }), :id, :name, prompt: 'Please select' %>
     </div>
 
     <div>
         <%= f.label :cover %>
-
+        <%= f.file_field :cover, accept: 'image/png,image/jpeg' %>
     </div>
 
     <div>
